@@ -1,0 +1,24 @@
+#!/bin/bash
+
+
+if [ $# -eq 0 ]; then
+    echo " no file inputted"
+    exit 1
+fi
+test_set_file="$1"
+
+if [ ! -f "$test_set_file" ]; then
+    echo "test file not found"
+    exit 1
+fi
+
+while read -r file_stem; do
+    for element in $file_stem; do
+        desc_file="${element}.desc"
+        if [ -f "$desc_file" ]; then
+            cat "$desc_file"
+        else
+            echo "$element No test description"
+        fi
+    done
+done < "$test_set_file"
